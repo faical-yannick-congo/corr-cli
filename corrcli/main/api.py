@@ -1,4 +1,4 @@
-import httplib
+import http.client as httplib
 import json
 import traceback
 import requests
@@ -31,7 +31,7 @@ def api_status(config=None, host=None, port=None):
 
     conn.request("GET", "/corr/api/v0.1/public/api/status")
     response = conn.getresponse()
-    data = response.read()
+    data = response.read().decode('utf-8')
     conn.close()
     try:
         data_json = json.loads(data)
@@ -121,7 +121,7 @@ def project_all(config=None):
 
     conn.request("GET", "/corr/api/v0.1/private/{0}/no-app/projects".format(config['api']['key']))
     response = conn.getresponse()
-    data = response.read()
+    data = response.read().decode('utf-8')
     conn.close()
     try:
         data_json = json.loads(data)
@@ -250,7 +250,7 @@ def project_records(config=None, project_id=None):
 
     conn.request("GET", "/corr/api/v0.1/private/{0}/no-app/project/records/{1}".format(config['api']['key'], project_id))
     response = conn.getresponse()
-    data = response.read()
+    data = response.read().decode("utf-8")
     conn.close()
     try:
         data_json = json.loads(data)
